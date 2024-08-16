@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getPostcodeDetails, verifyPan } from "../features/CustomerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import "./style.css";
 
 const CustomerForm = ({ customer = {}, onSave }) => {
   const dispatch = useDispatch();
@@ -78,10 +79,14 @@ const CustomerForm = ({ customer = {}, onSave }) => {
   }, [postcodeDetails]);
 
   return (
-    <div>
+    <div className="container">
+      <h2>Add Customer Details</h2>
+      <h6>All (*) marks fields are mandotary to fill</h6>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>PAN:</label>
+        <div className="field">
+          <label>
+            PAN: <span className="imp">*</span>
+          </label>
           <input
             type="text"
             name="pan"
@@ -94,8 +99,10 @@ const CustomerForm = ({ customer = {}, onSave }) => {
           {status === "loading" && <span>Loading...</span>}
           {status === "failed" && <span>Error: {error}</span>}
         </div>
-        <div>
-          <label>Full Name:</label>
+        <div className="field">
+          <label>
+            Full Name: <span className="imp">*</span>
+          </label>
           <input
             type="text"
             name="fullName"
@@ -105,8 +112,10 @@ const CustomerForm = ({ customer = {}, onSave }) => {
             required
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="field">
+          <label>
+            Email: <span className="imp">*</span>
+          </label>
           <input
             type="email"
             name="email"
@@ -116,8 +125,10 @@ const CustomerForm = ({ customer = {}, onSave }) => {
             required
           />
         </div>
-        <div>
-          <label>Mobile Number:</label>
+        <div className="field">
+          <label>
+            Mobile Number: <span className="imp">*</span>
+          </label>
           <input
             type="text"
             name="mobileNumber"
@@ -132,7 +143,9 @@ const CustomerForm = ({ customer = {}, onSave }) => {
           <div key={index}>
             <h4>Address {index + 1}</h4>
             <div>
-              <label>Address Line 1:</label>
+              <label>
+                Address Line 1: <span className="imp">*</span>
+              </label>
               <input
                 type="text"
                 name="line1"
@@ -151,7 +164,9 @@ const CustomerForm = ({ customer = {}, onSave }) => {
               />
             </div>
             <div>
-              <label>Postcode:</label>
+              <label>
+                Postcode: <span className="imp">*</span>
+              </label>
               <input
                 type="number"
                 name="postcode"
