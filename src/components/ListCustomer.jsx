@@ -2,6 +2,7 @@ import React from "react";
 import CustomerForm from "./CustomerForm";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCustomer, editCustomer } from "../features/CustomerSlice";
+import "./style.css";
 
 const ListCustomer = () => {
   const customers = useSelector((state) => state.customers?.customers || []);
@@ -15,35 +16,32 @@ const ListCustomer = () => {
     dispatch(editCustomer(customer.pan, customer));
   };
 
-  console.log("Customers:", customers); // Debugging statement to check data
+  console.log("Customers:", customers);
 
   return (
-    <div>
-      <h1>Customer List</h1>
-      {customers.length === 0 ? (
-        <p>No customers found.</p>
-      ) : (
-        customers.map((customer) => (
-          <div key={customer.pan}>
-            <h2>{customer.fullName}</h2>
-            <p>PAN: {customer.pan}</p>
-            <p>Email: {customer.email}</p>
-            <p>Mobile: {customer.mobileNumber}</p>
-            {customer.addresses.map((address, index) => (
-              <div key={index}>
-                <p>Address {index + 1}:</p>
-                <p>Line 1: {address.line1}</p>
-                <p>Line 2: {address.line2}</p>
-                <p>Postcode: {address.postcode}</p>
-                <p>State: {address.state}</p>
-                <p>City: {address.city}</p>
+    <div className="container">
+      <h2>Customer List</h2>
+      <ul className="customer-list">
+        {customers.length === 0 ? (
+          <p>No customers available.</p>
+        ) : (
+          customers.map((customer, index) => (
+            <li key={index}>
+              <span>
+                {customer.fullName} - {customer.email}
+              </span>
+              <div className="customer-actions">
+                <button className="edit" onClick={() => handleEdit(customer)}>
+                  Edit
+                </button>
+                <button onClick={() => handleDelete(customer.id)}>
+                  Delete
+                </button>
               </div>
-            ))}
-            <CustomerForm customer={customer} onSave={handleEdit} />
-            <button onClick={() => handleDelete(customer.pan)}>Delete</button>
-          </div>
-        ))
-      )}
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };
