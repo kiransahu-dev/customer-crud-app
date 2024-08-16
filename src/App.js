@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import "./App.css";
+import CustomerForm from "./components/CustomerForm";
+import ListCustomer from "./components/ListCustomer";
+import { store } from "./services/store";
+import { addCustomer } from "./features/CustomerSlice";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <h1>Customer CRUD Application</h1>
+        <CustomerForm
+          onSave={(customer) => store.dispatch(addCustomer(customer))}
+        />
+        <ListCustomer />
+      </div>
+    </Provider>
   );
 }
 
